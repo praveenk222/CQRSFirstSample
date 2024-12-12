@@ -4,3 +4,5 @@
 4.semantic UI componetns
 5.Basic forms in React
 6.CRUD operations.
+7. npm install semantic-ui-react semantic-ui-css
+8.Axios

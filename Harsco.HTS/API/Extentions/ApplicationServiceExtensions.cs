@@ -69,12 +69,14 @@ namespace API.Extentions
                         .AllowAnyMethod()
                         .AllowAnyHeader()
                         .AllowCredentials()
-                        .WithOrigins("http://localhost:3000");
+                        .WithOrigins("http://localhost:5173"); // Specify allowed origins
                 });
             });
+
+
             //services.AddMediatR(typeof(List.Handler));
-         //   services.AddAutoMapper(typeof(MappingProfiles).Assembly);
-           // services.AddFluentValidationAutoValidation();
+            //   services.AddAutoMapper(typeof(MappingProfiles).Assembly);
+            // services.AddFluentValidationAutoValidation();
             //services.AddValidatorsFromAssemblyContaining<Create>();
             services.AddHttpContextAccessor();
            
