@@ -1,0 +1,126 @@
+# ASP.NET Core (.NET Framework)
+# Build and test ASP.NET Core projects targeting the full .NET Framework.
+# Add steps that publish symbols, save build artifacts, and more:
+# https://docs.microsoft.com/azure/devops/pipelines/languages/dotnet-core
+
+trigger:
+- master
+
+pool:
+  vmImage: 'windows-latest'
+
+variables:
+  apiSolution: '**/Harsco.HTS/Harsco.HTS.API/Harsco.HTS.API/*.csproj'
+  uiSolution: '**/Harsco.HTS/Harsco.HTS.UI'
+  buildPlatform: 'Any CPU'
+  buildConfiguration: 'Release'
+  npmCacheFolder: $(build.sourcesDirectory)/Harsco.HTS/Harsco.HTS.UI/node_modules
+
+  
+
+steps:
+
+- task: DotNetCoreCLI@2
+  displayName: API - Restore Nuget
+  inputs:
+    command: 'restore'
+    projects: $(apiSolution)
+    arguments: '--configuration $(buildConfiguration)' 
+
+- task: DotNetCoreCLI@2
+  displayName: API - Build 
+  inputs:
+    command: 'build'
+    projects: $(apiSolution)
+    arguments: '--configuration $(buildConfiguration) --no-restore' # Update this to match your need
+
+- task: DotNetCoreCLI@2
+  displayName: API - Pack Build Output
+  inputs:
+    command: publish
+    arguments: '--configuration $(buildConfiguration) --output $(Build.ArtifactStagingDirectory)/API'
+    zipAfterPublish: True
+- task: NodeTool@0
+  displayName: "Use Node LTS"
+  inputs:
+    versionSpec: 18.19.0
+
+- task: Cache@2
+  displayName: 'Cache npm packages'
+  inputs:
+    key: 'npm | "$(Agent.OS)" | **/Harsco.HTS/Harsco.HTS.UI/package-lock.json'
+    path: $(npmCacheFolder)
+    restoreKeys: |
+     npm | "$(Agent.OS)"
+    cacheHitVar: 'NpmCacheRestored'
+    cacheMissVar: 'NpmCacheSaved'
+# - script: npm i
+#   displayName: 'UI - Conditional Install Angular Cli'
+#   workingDirectory: '$(build.sourcesDirectory)/Harsco.HTS/Harsco.HTS.UI'
+#   # condition: ${{ contains(variables.Build.Changes, '**/Harsco.HTS/Harsco.HTS.UI/package.json') }} 
+- task: NodeTool@0
+  inputs:
+    versionSpec: '18.19.0' # Use a Node.js version compatible with your build environment
+  displayName: 'Install Node.js'
+
+- script: npm install -g @angular/cli@9.0.6 
+  displayName: 'UI - Install Angular Cli'
+  workingDirectory: '$(build.sourcesDirectory)/Harsco.HTS/Harsco.HTS.UI'
+
+- script: npm install --legacy-peer-deps
+  displayName: 'UI - Conditional Restore Nuget Packages'
+  workingDirectory: '$(build.sourcesDirectory)/Harsco.HTS/Harsco.HTS.UI'
+  # condition: ${{ contains(variables.Build.Changes, '**/Harsco.HTS/Harsco.HTS.UI/package.json') }} 
+
+- script: ng build  --configuration dev --base-href /
+  displayName: 'UI - Build Angular Project'
+  workingDirectory: '$(build.sourcesDirectory)/Harsco.HTS/Harsco.HTS.UI'
+
+- task: ArchiveFiles@2
+  displayName: 'UI - Pack Build Output'
+  inputs:
+    rootFolderOrFile: '$(build.sourcesDirectory)/Harsco.HTS/Harsco.HTS.UI/dist/'
+    archiveFile: '$(build.ArtifactStagingDirectory)/UI/HarscoHTSUI_Dev.zip'
+    archiveType: 'zip'
+    replaceExistingArchive: true
+    includeRootFolder: false 
+
+- script: ng build  --configuration test --base-href /
+  displayName: 'UI - Build Angular Project'
+  workingDirectory: '$(build.sourcesDirectory)/Harsco.HTS/Harsco.HTS.UI'
+
+- task: ArchiveFiles@2
+  displayName: 'UI - Pack Build Output'
+  inputs:
+    rootFolderOrFile: '$(build.sourcesDirectory)/Harsco.HTS/Harsco.HTS.UI/dist/'
+    archiveFile: '$(build.ArtifactStagingDirectory)/UI/HarscoHTSUI_Test.zip'
+    archiveType: 'zip'
+    replaceExistingArchive: true
+    includeRootFolder: false 
+
+- script: ng build  --configuration production --base-href /
+  displayName: 'UI - Build Angular Project'
+  workingDirectory: '$(build.sourcesDirectory)/Harsco.HTS/Harsco.HTS.UI'
+
+- task: ArchiveFiles@2
+  displayName: 'UI - Pack Build Output'
+  inputs:
+    rootFolderOrFile: '$(build.sourcesDirectory)/Harsco.HTS/Harsco.HTS.UI/dist/'
+    archiveFile: '$(build.ArtifactStagingDirectory)/UI/HarscoHTSUI_Prod.zip'
+    archiveType: 'zip'
+    replaceExistingArchive: true
+    includeRootFolder: false
+
+- task: CopyFiles@2
+  displayName: 'Pack Publishing Profiles'
+  inputs:
+    SourceFolder: '$(build.sourcesDirectory)'
+    Contents: '**/+(*Deploy.pubxml|*publish.xml)'
+    TargetFolder: '$(build.ArtifactStagingDirectory)/PublishingProfiles'
+    flattenFolders: true
+
+- task: PublishBuildArtifacts@1
+  displayName: Publish All Build Artifacts
+  inputs:
+    pathtoPublish: '$(Build.ArtifactStagingDirectory)' 
+    artifactName: 'HTSUI-Build'

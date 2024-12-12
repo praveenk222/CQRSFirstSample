@@ -1,0 +1,60 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.2.32602.215
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Harsco.HTS.API", "Harsco.HTS.API\Harsco.HTS.API\Harsco.HTS.API.csproj", "{B95F0296-779F-433B-ABBF-35F56F669641}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Models", "Models", "{6101E717-8369-45D0-ADA8-EB90B85B0A29}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Harsco.HTS.ViewModels", "Harsco.HTS.Models\Harsco.HTS.ViewModels.csproj", "{742434DC-92F1-4F43-8935-B9E83CD92CF7}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Application", "Application\Application.csproj", "{A85D8020-0279-466C-B008-EA5CC79240B8}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Domain", "Domain\Domain.csproj", "{D96F02A7-75F4-4D21-87D2-859CF1B9EFFA}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Persistence", "Persistence\Persistence.csproj", "{AC0E9A94-3A6F-483A-8E63-1FDBA460B3AB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "API", "API\API.csproj", "{D6DA2FD0-1E37-4455-B2EF-BCF486DAF049}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B95F0296-779F-433B-ABBF-35F56F669641}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B95F0296-779F-433B-ABBF-35F56F669641}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B95F0296-779F-433B-ABBF-35F56F669641}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B95F0296-779F-433B-ABBF-35F56F669641}.Release|Any CPU.Build.0 = Release|Any CPU
+		{742434DC-92F1-4F43-8935-B9E83CD92CF7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{742434DC-92F1-4F43-8935-B9E83CD92CF7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{742434DC-92F1-4F43-8935-B9E83CD92CF7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{742434DC-92F1-4F43-8935-B9E83CD92CF7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A85D8020-0279-466C-B008-EA5CC79240B8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A85D8020-0279-466C-B008-EA5CC79240B8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A85D8020-0279-466C-B008-EA5CC79240B8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A85D8020-0279-466C-B008-EA5CC79240B8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D96F02A7-75F4-4D21-87D2-859CF1B9EFFA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D96F02A7-75F4-4D21-87D2-859CF1B9EFFA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D96F02A7-75F4-4D21-87D2-859CF1B9EFFA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D96F02A7-75F4-4D21-87D2-859CF1B9EFFA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AC0E9A94-3A6F-483A-8E63-1FDBA460B3AB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AC0E9A94-3A6F-483A-8E63-1FDBA460B3AB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AC0E9A94-3A6F-483A-8E63-1FDBA460B3AB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AC0E9A94-3A6F-483A-8E63-1FDBA460B3AB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D6DA2FD0-1E37-4455-B2EF-BCF486DAF049}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D6DA2FD0-1E37-4455-B2EF-BCF486DAF049}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D6DA2FD0-1E37-4455-B2EF-BCF486DAF049}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D6DA2FD0-1E37-4455-B2EF-BCF486DAF049}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{742434DC-92F1-4F43-8935-B9E83CD92CF7} = {6101E717-8369-45D0-ADA8-EB90B85B0A29}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {BD2D1D78-F5C3-4BEB-B973-7FD310B1FDF6}
+	EndGlobalSection
+EndGlobal
